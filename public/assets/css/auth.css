@@ -1,0 +1,29 @@
+.auth-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.auth-container {
+    width: 100%;
+}
+
+.auth-card {
+    border-radius: 1rem;
+    border: 1px solid #d9e5ff;
+}
+
+.login-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.captcha-image {
+    width: 150px;
+    height: 52px;
+    border: 1px solid #c8d9ff;
+    border-radius: 0.5rem;
+    background: #fff;
+}

@@ -1,0 +1,32 @@
+:root {
+    --edokter-royal-blue: #0a3ca8;
+    --edokter-royal-blue-dark: #072d7f;
+    --edokter-secondary: #6b7280;
+    --edokter-surface: #f4f7ff;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top right, #eaf2ff, #f8fbff 35%, #ffffff 100%);
+    color: #1f2937;
+}
+
+.btn-primary {
+    background-color: var(--edokter-royal-blue);
+    border-color: var(--edokter-royal-blue);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--edokter-royal-blue-dark);
+    border-color: var(--edokter-royal-blue-dark);
+}
+
+.form-control:focus {
+    border-color: #7ea5f1;
+    box-shadow: 0 0 0 0.25rem rgba(10, 60, 168, 0.2);
+}
+
+.text-secondary {
+    color: var(--edokter-secondary) !important;
+}

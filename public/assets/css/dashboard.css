@@ -1,0 +1,487 @@
+.dashboard-wrapper {
+    min-height: 100vh;
+    display: flex;
+    background: linear-gradient(180deg, #eef4ff 0%, #ffffff 40%);
+}
+
+.app-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--edokter-royal-blue);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    transition: margin-left 0.25s ease;
+}
+
+.sidebar-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+}
+
+.sidebar-nav .nav-link,
+.sidebar-bottom .nav-link {
+    color: #d9e5ff;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.sidebar-nav .nav-link.active,
+.sidebar-nav .nav-link:hover,
+.sidebar-bottom .nav-link:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.main-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid #dbe5f9;
+    backdrop-filter: blur(4px);
+}
+
+.content-area {
+    flex: 1;
+    padding: 1.25rem;
+}
+
+.page-card .stat-box {
+    border: 1px solid #dbe5f9;
+    border-radius: 0.8rem;
+    background: #ffffff;
+    padding: 1rem;
+}
+
+.page-card .stat-box h3 {
+    margin: 0.4rem 0 0;
+    color: var(--edokter-royal-blue);
+}
+
+.page-card .dashboard-table-wrap {
+    max-height: 320px;
+}
+
+.page-card .dashboard-table-wrap .table thead th {
+    position: sticky;
+    top: 0;
+    background: #f4f7ff;
+    color: var(--edokter-royal-blue);
+    z-index: 1;
+}
+
+.app-footer {
+    border-top: 1px solid #dbe5f9;
+    padding: 0.8rem 1.25rem;
+    margin-top: auto;
+    background: #ffffff;
+}
+
+.footer-watermark {
+    color: var(--edokter-royal-blue);
+    font-weight: 600;
+}
+
+.sidebar-collapsed .app-sidebar {
+    margin-left: -260px;
+}
+
+@media (max-width: 991.98px) {
+    .app-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 1045;
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+    }
+
+    .sidebar-collapsed .app-sidebar {
+        margin-left: -260px;
+        box-shadow: none;
+    }
+}
+
+.poli-page .poli-filters {
+    display: grid;
+    grid-template-columns: minmax(220px, 2fr) repeat(4, minmax(140px, 1fr)) auto auto;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.poli-page .search-box .form-control {
+    min-height: 42px;
+}
+
+.poli-page .poli-table thead th {
+    background: #f4f7ff;
+    color: var(--edokter-royal-blue);
+    border-bottom: 1px solid #dbe5f9;
+    font-weight: 600;
+}
+
+.poli-page .poli-table td,
+.poli-page .poli-table th {
+    white-space: nowrap;
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+}
+
+.poli-page .jk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+}
+
+.poli-page .export-icon-btn {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.poli-page .poli-clickable-row {
+    cursor: pointer;
+}
+
+.poli-page .poli-clickable-row:hover {
+    background: #f8fbff;
+}
+
+.poli-page .poli-clickable-row:focus-visible {
+    outline: 2px solid #6ea8fe;
+    outline-offset: -2px;
+}
+
+.poli-page .poli-row-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.poli-page .poli-row-link:hover {
+    text-decoration: underline;
+}
+
+.rawat-inap-page .rawat-inap-filters {
+    display: grid;
+    grid-template-columns: minmax(240px, 2fr) repeat(4, minmax(140px, 1fr)) auto;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.rawat-inap-page .search-box .form-control {
+    min-height: 42px;
+}
+
+.rawat-inap-page .rawat-inap-table thead th {
+    background: #f4f7ff;
+    color: var(--edokter-royal-blue);
+    border-bottom: 1px solid #dbe5f9;
+    font-weight: 600;
+}
+
+.rawat-inap-page .rawat-inap-table td,
+.rawat-inap-page .rawat-inap-table th {
+    white-space: nowrap;
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+}
+
+.rawat-inap-page .rawat-inap-clickable-row {
+    cursor: pointer;
+}
+
+.rawat-inap-page .rawat-inap-clickable-row:hover {
+    background: #f8fbff;
+}
+
+.rawat-inap-page .rawat-inap-clickable-row:focus-visible {
+    outline: 2px solid #6ea8fe;
+    outline-offset: -2px;
+}
+
+.rawat-inap-page #rawatInapActionModal .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.rawat-inap-page .btn-edokter-autofill {
+    background: var(--edokter-royal-blue);
+    border-color: var(--edokter-royal-blue);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+}
+
+.rawat-inap-page .btn-edokter-autofill:hover,
+.rawat-inap-page .btn-edokter-autofill:focus-visible {
+    background: #1c54cf;
+    border-color: #1c54cf;
+    color: #ffffff;
+}
+
+.rawat-inap-page .btn-edokter-autofill:disabled {
+    opacity: 0.8;
+}
+
+.rawat-inap-page .riwayat-modal-dialog {
+    max-width: min(1280px, 96vw);
+}
+
+.rawat-inap-page .riwayat-modal-body {
+    min-height: 70vh;
+    background: #f8fbff;
+    position: relative;
+}
+
+.rawat-inap-page .riwayat-modal-loading {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    color: #4a5a75;
+    font-weight: 500;
+}
+
+.rawat-inap-page .riwayat-modal-content-area {
+    width: 100%;
+    min-height: 70vh;
+    background: #ffffff;
+    overflow: auto;
+    padding: 0.75rem;
+}
+
+.riwayat-page .riwayat-filters {
+    display: grid;
+    grid-template-columns: minmax(180px, 2fr) repeat(3, minmax(130px, 1fr)) minmax(130px, 1fr);
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.riwayat-page .riwayat-icon-btn {
+    max-width: 3rem;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.riwayat-page .riwayat-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.riwayat-page .riwayat-menu-toggle {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.riwayat-page .riwayat-menu-content {
+    transition: opacity 0.2s ease;
+}
+
+.riwayat-page .riwayat-body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+}
+
+.riwayat-page .riwayat-body.riwayat-sidebar-collapsed {
+    grid-template-columns: 52px 1fr;
+}
+
+.riwayat-page .riwayat-sidebar {
+    border-right: 1px solid #dbe5f9;
+    padding-right: 1rem;
+    max-height: 72vh;
+    overflow: auto;
+    position: relative;
+    background: #fff;
+    z-index: 2;
+    transition: width 0.2s ease, padding 0.2s ease;
+}
+
+.riwayat-page .riwayat-sidebar.is-collapsed {
+    padding-right: 0;
+    overflow: visible;
+}
+
+.riwayat-page .riwayat-sidebar.is-collapsed .riwayat-menu-content {
+    display: none;
+}
+
+.riwayat-page .riwayat-sidebar.is-collapsed .riwayat-menu-header {
+    justify-content: center;
+    margin-bottom: 0;
+    min-height: 2.5rem;
+}
+
+.riwayat-page .riwayat-sidebar.is-collapsed .riwayat-menu-header h3 {
+    display: none;
+}
+
+.riwayat-page .riwayat-sidebar.is-collapsed .riwayat-menu-toggle {
+    position: absolute;
+    top: 0.4rem;
+    right: -0.9rem;
+    z-index: 5;
+    background: #fff;
+    border-color: #dbe5f9;
+    box-shadow: 0 2px 8px rgba(15, 34, 56, 0.16);
+}
+
+.riwayat-page .riwayat-content {
+    min-width: 0;
+    max-height: 72vh;
+    overflow: auto;
+}
+
+.riwayat-page .riwayat-section-title {
+    margin: 1rem 0 0.5rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dbe5f9;
+    background: #f4f7ff;
+    color: var(--edokter-royal-blue);
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.riwayat-page .lab-ket-low {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.riwayat-page .lab-ket-high {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.riwayat-page .lab-ket-text {
+    color: #111827;
+    font-weight: 700;
+}
+
+.riwayat-page .lab-ket-normal {
+    color: #334155;
+}
+
+@media (max-width: 1199.98px) {
+    .poli-page .poli-filters {
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+    }
+
+    .rawat-inap-page .rawat-inap-filters {
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+    }
+
+    .riwayat-page .riwayat-filters {
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+    }
+
+    .rawat-inap-page .riwayat-modal-body,
+    .rawat-inap-page .riwayat-modal-loading,
+    .rawat-inap-page .riwayat-modal-content-area {
+        min-height: 62vh;
+        height: 62vh;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .poli-page .poli-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .rawat-inap-page .rawat-inap-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .poli-page .poli-filters > div,
+    .poli-page .poli-filters .search-box {
+        width: 100%;
+    }
+
+    .rawat-inap-page .rawat-inap-filters > div,
+    .rawat-inap-page .rawat-inap-filters .search-box {
+        width: 100%;
+    }
+
+    .poli-page .table-responsive {
+        border-top: 1px solid #eef2fb;
+    }
+
+    .rawat-inap-page .table-responsive {
+        border-top: 1px solid #eef2fb;
+    }
+
+    .riwayat-page .riwayat-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .riwayat-page .riwayat-body {
+        grid-template-columns: 1fr;
+    }
+
+    .riwayat-page .riwayat-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid #dbe5f9;
+        padding-right: 0;
+        padding-bottom: 0.75rem;
+        max-height: none;
+    }
+
+    .riwayat-page .riwayat-icon-btn {
+        max-width: none;
+        width: 100%;
+    }
+
+    .riwayat-page .riwayat-content {
+        max-height: none;
+    }
+
+    .rawat-inap-page .btn-edokter-autofill {
+        padding-inline: 0.55rem;
+        font-size: 0.78rem;
+    }
+
+    .rawat-inap-page .riwayat-modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .rawat-inap-page .riwayat-modal-body,
+    .rawat-inap-page .riwayat-modal-loading,
+    .rawat-inap-page .riwayat-modal-content-area {
+        min-height: 68vh;
+        height: 68vh;
+    }
+}
