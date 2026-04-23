@@ -598,6 +598,82 @@ if ($noRm !== '') {
         });
     };
 
+    const initRiwayatSectionControls = (container) => {
+        if (!container) {
+            return;
+        }
+
+        const selectAll = container.querySelector('#select_all');
+        const uncheckAll = container.querySelector('#uncheck_all');
+        const sectionChecks = Array.from(container.querySelectorAll('.section-check'));
+        const selectAllHidden = container.querySelector('#select_all_hidden');
+        const sectionForm = container.querySelector('#section-form');
+        const menuToggle = container.querySelector('#menu_section_toggle');
+        const menuContent = container.querySelector('#menu_section_content');
+        const riwayatBody = container.querySelector('#riwayat_body');
+        const riwayatSidebar = container.querySelector('#riwayat_sidebar');
+
+        if (!selectAll || !selectAllHidden || !sectionForm) {
+            return;
+        }
+
+        const syncSelectAllState = () => {
+            if (sectionChecks.length === 0) {
+                return;
+            }
+
+            const checkedCount = sectionChecks.reduce((count, checkbox) => {
+                return count + (checkbox.checked ? 1 : 0);
+            }, 0);
+
+            selectAll.checked = checkedCount === sectionChecks.length;
+            selectAllHidden.value = selectAll.checked ? '1' : '0';
+        };
+
+        selectAll.addEventListener('change', () => {
+            const checked = selectAll.checked;
+            selectAllHidden.value = checked ? '1' : '0';
+            sectionChecks.forEach((checkbox) => {
+                checkbox.checked = checked;
+            });
+        });
+
+        if (uncheckAll) {
+            uncheckAll.addEventListener('click', () => {
+                sectionChecks.forEach((checkbox) => {
+                    checkbox.checked = false;
+                });
+                selectAll.checked = false;
+                selectAllHidden.value = '0';
+            });
+        }
+
+        sectionChecks.forEach((checkbox) => {
+            checkbox.addEventListener('change', syncSelectAllState);
+        });
+
+        sectionForm.addEventListener('submit', () => {
+            syncSelectAllState();
+        });
+
+        syncSelectAllState();
+
+        if (menuToggle && menuContent && riwayatBody && riwayatSidebar) {
+            menuToggle.addEventListener('click', () => {
+                const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                const nextExpanded = !expanded;
+                menuToggle.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
+                riwayatBody.classList.toggle('riwayat-sidebar-collapsed', !nextExpanded);
+                riwayatSidebar.classList.toggle('is-collapsed', !nextExpanded);
+                menuToggle.setAttribute('title', nextExpanded ? 'Sembunyikan ke kiri' : 'Tampilkan ke kanan');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.className = nextExpanded ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+                }
+            });
+        }
+    };
+
     const addRiwayatModalFormHandlers = () => {
         if (!riwayatModalContent) {
             return;
@@ -653,6 +729,7 @@ if ($noRm !== '') {
 
             riwayatModalContent.innerHTML = section.outerHTML;
             executeScripts(riwayatModalContent);
+            initRiwayatSectionControls(riwayatModalContent);
             addRiwayatModalFormHandlers();
 
             clearRiwayatLoadingTimer();

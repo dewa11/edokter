@@ -852,14 +852,52 @@ final class DashboardController
         $request = Flight::request();
         $today = (new DateTimeImmutable('today'))->format('Y-m-d');
 
-        $dateMode = trim((string) ($request->query->dateMode ?? 'belum_pulang'));
+        $sessionKey = 'rawat_inap_state_doctor';
+        $storedState = is_array($_SESSION[$sessionKey] ?? null) ? $_SESSION[$sessionKey] : [];
+        $hasQueryString = count($_GET) > 0;
+
+        $rawState = [
+            'search' => (string) ($storedState['search'] ?? ''),
+            'dateMode' => (string) ($storedState['dateMode'] ?? 'belum_pulang'),
+            'dateFrom' => (string) ($storedState['dateFrom'] ?? $today),
+            'dateTo' => (string) ($storedState['dateTo'] ?? $today),
+            'resumeStatus' => (string) ($storedState['resumeStatus'] ?? 'all'),
+            'perPage' => (int) ($storedState['perPage'] ?? 10),
+            'page' => (int) ($storedState['page'] ?? 1),
+        ];
+
+        if ($hasQueryString) {
+            if (array_key_exists('q', $_GET)) {
+                $rawState['search'] = trim((string) ($request->query->q ?? ''));
+            }
+            if (array_key_exists('dateMode', $_GET)) {
+                $rawState['dateMode'] = trim((string) ($request->query->dateMode ?? ''));
+            }
+            if (array_key_exists('dateFrom', $_GET)) {
+                $rawState['dateFrom'] = trim((string) ($request->query->dateFrom ?? ''));
+            }
+            if (array_key_exists('dateTo', $_GET)) {
+                $rawState['dateTo'] = trim((string) ($request->query->dateTo ?? ''));
+            }
+            if (array_key_exists('resumeStatus', $_GET)) {
+                $rawState['resumeStatus'] = trim((string) ($request->query->resumeStatus ?? ''));
+            }
+            if (array_key_exists('perPage', $_GET)) {
+                $rawState['perPage'] = (int) ($request->query->perPage ?? 10);
+            }
+            if (array_key_exists('page', $_GET)) {
+                $rawState['page'] = (int) ($request->query->page ?? 1);
+            }
+        }
+
+        $dateMode = trim((string) ($rawState['dateMode'] ?? 'belum_pulang'));
         $allowedDateModes = ['belum_pulang', 'tgl_masuk', 'tgl_pulang'];
         if (!in_array($dateMode, $allowedDateModes, true)) {
             $dateMode = 'belum_pulang';
         }
 
-        $dateFrom = trim((string) ($request->query->dateFrom ?? $today));
-        $dateTo = trim((string) ($request->query->dateTo ?? $today));
+        $dateFrom = trim((string) ($rawState['dateFrom'] ?? $today));
+        $dateTo = trim((string) ($rawState['dateTo'] ?? $today));
 
         $needsDateRange = $dateMode === 'tgl_masuk' || $dateMode === 'tgl_pulang';
         if ($needsDateRange) {
@@ -876,23 +914,33 @@ final class DashboardController
             }
         }
 
-        $search = trim((string) ($request->query->q ?? ''));
-        $resumeStatus = trim((string) ($request->query->resumeStatus ?? 'all'));
+        $search = trim((string) ($rawState['search'] ?? ''));
+        $resumeStatus = trim((string) ($rawState['resumeStatus'] ?? 'all'));
         $allowedResumeStatus = ['all', 'sudah', 'belum'];
         if (!in_array($resumeStatus, $allowedResumeStatus, true)) {
             $resumeStatus = 'all';
         }
 
-        $perPage = (int) ($request->query->perPage ?? 10);
+        $perPage = (int) ($rawState['perPage'] ?? 10);
         $allowedPerPage = [10, 25, 50, 100];
         if (!in_array($perPage, $allowedPerPage, true)) {
             $perPage = 10;
         }
 
-        $page = max(1, (int) ($request->query->page ?? 1));
+        $page = max(1, (int) ($rawState['page'] ?? 1));
 
         $doctorId = trim(Auth::doctorId());
         $forceEmpty = $doctorId === '';
+
+        $_SESSION[$sessionKey] = [
+            'search' => $search,
+            'dateMode' => $dateMode,
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo,
+            'resumeStatus' => $resumeStatus,
+            'perPage' => $perPage,
+            'page' => $page,
+        ];
 
         return [
             'search' => $search,
