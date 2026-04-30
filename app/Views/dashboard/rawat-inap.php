@@ -79,7 +79,11 @@ $formatDobWithAge = static function (string $dateValue): string {
 
     $birthDate = \DateTimeImmutable::createFromFormat('!Y-m-d', $dateValue);
     $errors = \DateTimeImmutable::getLastErrors();
-    if ($birthDate === false || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
+    if ($birthDate === false) {
+        return '-';
+    }
+
+    if (is_array($errors) && ($errors['warning_count'] > 0 || $errors['error_count'] > 0)) {
         return '-';
     }
 
