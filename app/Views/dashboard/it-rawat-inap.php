@@ -75,6 +75,27 @@ $formatDate = static function (string $dateValue): string {
     return $date->format('d-m-Y');
 };
 
+$formatDobWithAge = static function (string $dateValue): string {
+    if ($dateValue === '' || $dateValue === '0000-00-00') {
+        return '-';
+    }
+
+    $birthDate = \DateTimeImmutable::createFromFormat('!Y-m-d', $dateValue);
+    $errors = \DateTimeImmutable::getLastErrors();
+    if ($birthDate === false || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
+        return '-';
+    }
+
+    $today = new \DateTimeImmutable('today');
+    if ($birthDate > $today) {
+        return '-';
+    }
+
+    $age = $birthDate->diff($today)->y;
+
+    return $birthDate->format('d-m-Y') . ' (' . $age . ' th)';
+};
+
 $firstRow = $totalRows > 0 ? $offset + 1 : 0;
 $lastRow = min($offset + count($patients), $totalRows);
 $dateInputsDisabled = $dateMode === 'belum_pulang';
@@ -207,6 +228,7 @@ $dateInputsDisabled = $dateMode === 'belum_pulang';
                         <th scope="col">Resume</th>
                         <th scope="col">No RM</th>
                         <th scope="col">Nama Pasien</th>
+                        <th scope="col">Tanggal Lahir (Age)</th>
                         <th scope="col">Kamar</th>
                         <th scope="col">Tanggal Masuk</th>
                         <th scope="col">Tanggal Pulang</th>
@@ -218,7 +240,7 @@ $dateInputsDisabled = $dateMode === 'belum_pulang';
                     <tbody>
                     <?php if (count($patients) === 0): ?>
                         <tr>
-                            <td colspan="10" class="text-center py-4 text-secondary">
+                            <td colspan="11" class="text-center py-4 text-secondary">
                                 Data pasien rawat inap tidak ditemukan untuk filter yang dipilih.
                             </td>
                         </tr>
@@ -228,6 +250,7 @@ $dateInputsDisabled = $dateMode === 'belum_pulang';
                             $noRawat = $getField($row, 'no_rawat');
                             $noRm = $getField($row, 'no_rkm_medis');
                             $nmPasien = $getField($row, 'nm_pasien');
+                            $tglLahirAge = $formatDobWithAge($getField($row, 'tgl_lahir'));
                             $kamar = $getField($row, 'kamar');
                             $tglMasuk = $formatDate($getField($row, 'tgl_masuk'));
                             $tglKeluar = $formatDate($getField($row, 'tgl_keluar'));
@@ -264,6 +287,7 @@ $dateInputsDisabled = $dateMode === 'belum_pulang';
                                 </td>
                                 <td><?= \App\Helpers\App::e($noRm) ?></td>
                                 <td><?= \App\Helpers\App::e($nmPasien) ?></td>
+                                <td><?= \App\Helpers\App::e($tglLahirAge) ?></td>
                                 <td><?= \App\Helpers\App::e($kamar) ?></td>
                                 <td><?= \App\Helpers\App::e($tglMasuk) ?></td>
                                 <td><?= \App\Helpers\App::e($tglKeluar) ?></td>

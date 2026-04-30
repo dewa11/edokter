@@ -100,6 +100,7 @@ final class RawatInapModel
                 ki.no_rawat,
                 rp.no_rkm_medis,
                 p.nm_pasien,
+                p.tgl_lahir,
                 CONCAT(ki.kd_kamar, ' ', b.nm_bangsal) AS kamar,
                 ki.tgl_masuk,
                 IF(ki.tgl_keluar = '0000-00-00', '', ki.tgl_keluar) AS tgl_keluar,
